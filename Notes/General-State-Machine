@@ -1,0 +1,30 @@
+1. SMACH Tutorials
+ SMACH is a powerful and scalable python-based library for hierarchical state machines. The Smach library does not depend on ROS, and can be used in any Python project.
+ 
+  1.1 create a state
+  
+    simply inherit from the State base class
+    
+    class Foo(smach.State):
+      def __init__(self, outcome=['outcome1', 'outcome2']):
+        # your state initialization goes here
+      def execute(self, userdata):
+        # your state execution goes here
+        if xxxx:
+          return 'outcome1'
+        else:
+          return 'outcome2'
+          
+  1.2 adding states to a state machine
+    
+      sm = smach.StateMachine(outcome=['outcome4', 'outcome5']
+      with sm:
+        smach.StateMachine.add('FOO', Foo(),
+                              transitions={'outcome1':'Bar',
+                                           'outcome2':'outcome4'}) #here 'Bar' is another state, 'outcome4' is the outcome of the state machine 'sm'
+        smach.StateMachine.add('Bar', Bar(),
+                              transitions={'outcome2':'Foo'})
+                  
+
+calling actions from a state machine(ROS)
+SMACH has specific support to call actions, saving a lot of code, SMACH provides a state class that acts as a proxy to an actionlib action.
