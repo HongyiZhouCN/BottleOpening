@@ -25,6 +25,61 @@
         smach.StateMachine.add('Bar', Bar(),
                               transitions={'outcome2':'Foo'})
                   
+  1.3 passing user data between states:
+      
+      a state may require some input data to do its work or it could have some output data it wants to provide to other states.
+      the input and output data of a state is called userdata of the state.
+      
+      you need to specify input and output keys when construct the state class:
+      
+   1   class Foo(smach.State):
+   2      def __init__(self, outcomes=['outcome1', 'outcome2'],
+   3                         input_keys=['foo_input'],
+   4                         output_keys=['foo_output'])
+   5 
+   6      def execute(self, userdata):
+   7         # Do something with userdata
+   8         if userdata.foo_input == 1:
+   9             return 'outcome1'
+  10         else:
+  11             userdata.foo_output = 3
+  12             return 'outcome2'
+      
+      connecting user data:
+      when adding states to a state machine, you also need to connect the user data fields, to allow states to pass data to each other.
+   
+   1   sm_top = smach.StateMachine(outcomes=['outcome4','outcome5'],
+   2                           input_keys=['sm_input'],
+   3                           output_keys=['sm_output'])
+   4   with sm_top:
+   5      smach.StateMachine.add('FOO', Foo(),
+   6                             transitions={'outcome1':'BAR',
+   7                                          'outcome2':'outcome4'},
+   8                             remapping={'foo_input':'sm_input',
+   9                                        'foo_output':'sm_data'})
+  10      smach.StateMachine.add('BAR', Bar(),
+  11                             transitions={'outcome2':'FOO'},
+  12                             remapping={'bar_input':'sm_data',
+  13                                        'bar_output1':'sm_output'})
+  
+  1.3 calling actions from a state machine(ROS)  
+      
+      SMACH has specific support to call actions, saving a lot of code, SMACH provides a state class that acts as a proxy to an actionlib action.
 
-calling actions from a state machine(ROS)
-SMACH has specific support to call actions, saving a lot of code, SMACH provides a state class that acts as a proxy to an actionlib action.
+      from smach_ros import SimpleActionState #first need to import SimpleActionState
+      
+      the instantiation of the state takes a topic name, action type and some policy for generating a goal.
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+
