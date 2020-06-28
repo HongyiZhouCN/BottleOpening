@@ -62,7 +62,9 @@
   12                             remapping={'bar_input':'sm_data',
   13                                        'bar_output1':'sm_output'})
   
-  1.3 calling actions from a state machine(ROS)  
+
+
+1.3 calling actions from a state machine(ROS)  
       
       SMACH has specific support to call actions, saving a lot of code, SMACH provides a state class that acts as a proxy to an actionlib action.
 
@@ -71,8 +73,27 @@
       the instantiation of the state takes a topic name, action type and some policy for generating a goal.
       
       
-      
-      
+Viewing State Machines (ROS)
+
+ the SMACH viewer
+ SMACH containers can provide a debugging interface(over ROS) which allows a developer to get full introspection into a state machine.
+ The SMACH viewer can use this debugging interface to visualize and interact with your state machine.
+ To add this debugging interface to a state machine, add the following lines to your code.
+ 
+   1 # First you create a state machine sm
+   2 # .....
+   3 # Creating of state machine sm finished
+   4 
+   5 # Create and start the introspection server
+   6 sis = smach_ros.IntrospectionServer('server_name', sm, '/SM_ROOT') # introspection n.内省，自省
+   7 sis.start()
+   8 
+   9 # Execute the state machine
+  10 outcome = sm.execute()
+  11 
+  12 # Wait for ctrl-c to stop the application
+  13 rospy.spin()
+  14 sis.stop()
       
       
       
