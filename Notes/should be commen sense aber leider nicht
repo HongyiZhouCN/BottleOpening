@@ -1,0 +1,21 @@
+YAML(a recursive acronym for YAML Ain't Markup Language) is a human-readable data-serialization language. It's commonly used for configuration files and in applications where data is being stored or transmitted.
+it uses both Python-style indentation to indicate nesting, and a more compact format that uses [...] for lists and {...} for maps making YAML 1.2 a superset of JSON.
+
+rosparam:
+
+  roslaunch API
+  the <rosparam> tag enables the use of rosparam tool for loading and dumping parameters encoded in YAML files. the <rosparam> tag can be put inside of a <node> tag, in which case the parameter is treated like a private name.
+  loading and dumping parameters from the ROS Parameter Server, it can also used to remove parameters.
+  Attributes of <rosparam> tag 
+  command="load|dump|delete"
+  file = "$(find pkg-name)/path/foo.yaml" (load or dump commands)
+  param = "param-name"
+  ns = "namespace" (optional)
+      scope the parameters to the specified namespace
+  subst_value = true|false(optional)
+      allows use of substitution args in the YAML text.
+  
+
+ROS Parameter Server:
+
+a parameter server is a shared, multi-variate dictionary that is accessible via network APIs. Nodes use this server to store and retrieve parameters at runtime.
