@@ -1,0 +1,26 @@
+How to use the general state machine:
+    the basic config file:
+        defines the publishers, subscribers, services and service clients needed in the state machine.
+        the configuration of moveIt and other parameters could also declared in this file.
+    the basic_states file:
+        declares the states shared by the sub-state-machines
+    the third and the fourth file indicate the configuration of the sub-state-machines
+
+Basic configuration:
+    Publisher/Subscriber/Service/Client/Parameter
+
+    publishers:                                         # indicate that this is a Publisher
+        target_pose:                                    # register a publisher in the publisher dictionary with a string 'target_pose' as key and a publisher object as value
+            topic: "topic name"
+            type:{'geometry_msgs.msg': 'PoseStamped'}   # configuration to instantiate a publisher object
+    
+    Subscriber: almost the same with publisher
+    
+    Service:
+        standard:                                       # indicate this configuration is about service
+        name: "/arm/driver/standardBottleTrigger"       
+        type: {'std_srvs.srv': 'Trigger'}
+        parameter: {target_obj_frame: "bottle_cap_standard_link",
+                    sub_sm: 'standard'}                 # specifies the parameter keys in the parameter dictionary and their value to update once this service is called.
+
+
