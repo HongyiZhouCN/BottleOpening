@@ -19,3 +19,5 @@ rosparam:
 ROS Parameter Server:
 
 a parameter server is a shared, multi-variate dictionary that is accessible via network APIs. Nodes use this server to store and retrieve parameters at runtime.
+
+How to use git in vscode:
