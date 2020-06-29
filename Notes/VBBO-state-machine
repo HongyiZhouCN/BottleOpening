@@ -1,0 +1,40 @@
+Cloud_States Machine:
+    basic_states:
+
+    1. INIT:
+        outcome: 'success' 
+        transitions: 'success': 'TRANS_CREATE_CLOUD'
+        
+    Question: 
+        1. what does the 'action_time' do?
+    
+    2. TRANS_CREATE_CLOUD:
+        outcomes: ['success']
+        transitions: {'success':'CLOUD'}
+        on_enter_do:
+            0_action_time: 0.5
+    
+    3. TRANS_FIND_CAPS:
+        outcome: 'success'
+        transitions: 'success':'IDLE'
+        on_enter_do:
+            0_action_time: 0.5
+    
+    4. IDLE:
+        outcome: 'success', 'end'
+        transitions: {'success': 'TRANS_CREATE_CLOUD',
+                       'end': END}
+        on_enter_do:
+            0_action_time: 1
+
+    5.FAILURE:                                   
+        outcome: 'success'
+        transitions: {'success':'END'}
+
+Sub States Machines:                                              # Substates are shared for all state machines
+    
+    1. cloud                                                      # It's a state machine which contains n States
+        states:
+            1_CLOUD_INIT:
+                outcomes:['success']
+                transitions:{'success': 'DETERMINE-MOVE-POS'}
