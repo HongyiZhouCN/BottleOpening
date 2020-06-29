@@ -16,11 +16,37 @@ Basic configuration:
     
     Subscriber: almost the same with publisher
     
-    Service:
-        standard:                                       # indicate this configuration is about service
+    standard:                                           # indicate this configuration is for service
         name: "/arm/driver/standardBottleTrigger"       
         type: {'std_srvs.srv': 'Trigger'}
         parameter: {target_obj_frame: "bottle_cap_standard_link",
                     sub_sm: 'standard'}                 # specifies the parameter keys in the parameter dictionary and their value to update once this service is called.
 
 
+    Client:
+        similar to the publisher, a service client dictionary is built to save the mapping between the identifier and client instance.
+
+
+States:
+    the way to declare a state in the basic state configuration and in the sub-state-machine is the same. In it consist of three parts. namely the state transitions, on_enter_do and
+    check_condition.
+
+    basic_states:                                       # indicates these are configuration for the basic states
+        IDLE:                                           # register a state called IDLE
+        outcomes: ['standard', 'small']                 # the outcomes of this state and the connected states 
+        transitions: {'standard':'STANDARD',
+                        'small': 'SMALL'}
+        
+        on_enter_do:                                    # some executions are defined. executions means calling a service, changing a parameter or sth similar
+            0_arm_lock : False                          # calls service 'arm_lock' with a request False, 0 address the order of execution. smaller higher
+            1_moveit:
+                joint_value: [0.0, 0.0, 1.57, 0.0, 1.57, 0.0]
+                velocity_scaling_factor: 0.3
+                acceleration_scaling_factor: 0.3
+        
+        check_conditions:                               # defines the conditions which need to be checked, after on_enter_do finished. check until transition is triggered
+            1_value:
+                current_value: {param_dict: 'start_flag'}
+                equal_threshold: True
+                obey_do:                                # if the conditions returns True, the state machine would execute the actions in the obey_do
+                    1_return: {param_dict: 'sub_sm'}
