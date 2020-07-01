@@ -1,0 +1,2 @@
+Tipps:
+    if you fails to install Ubuntu, try press 'e' in GRUB and edit the installation config, add 'nomodeset' after quiet splash or sth like it
