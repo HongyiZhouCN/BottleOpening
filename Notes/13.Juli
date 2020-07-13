@@ -31,6 +31,8 @@ How to use the general state machine:
     on_enter_do:
       some executions are defined here, the so-called exectuion means calling a service, changing a parameter or something similar.
       (define the order of a sequence of executions)
+      //so I guess the service must be provided by the rosnodes which defined in .cpp or .py form. and the service should be initialized 
+      and advertise before the client in state machine call for the service.
     
     check_conditions:
       check the listed conditions, if all the conditions returns true, the state machine would execute the actions in the obey_do.
