@@ -31,4 +31,7 @@ How to use the general state machine:
     on_enter_do:
       some executions are defined here, the so-called exectuion means calling a service, changing a parameter or something similar.
       (define the order of a sequence of executions)
+    
     check_conditions:
+      check the listed conditions, if all the conditions returns true, the state machine would execute the actions in the obey_do.
+      otherwise, the actions in violate_do would be executed.
