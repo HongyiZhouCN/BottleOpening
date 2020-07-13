@@ -1,0 +1,34 @@
+robot.launch:
+  launch file for the robot and camera
+  The <arg> tag allows you to create more re-usable and configurable launch files by specifying 
+  values that are passed via the command-line. you can configure the <arg> value when roslaunch from command line via 'arg_name:=value'.
+  Running a nodelet:
+    the nodelet package is designed to provide a way to run multiple algorithms in the same process with zero copy transport between 
+    algorithms.
+    
+  
+pcl_handler.launch:
+  
+
+Find_object_node.cpp:
+
+
+How to use the general state machine:
+  
+  Basic Configuration:
+    defines the P/S/S/C which will be used in the state machine.
+    Publishers/Subscribers/Services/Clients(of the srv)
+    for Publishers/Subscribers:
+        only defines the names of publisher/subscriber, topics and message types
+    for Services/Clients:
+        defines the name, service type(type of service is the return value of a srv callback),
+        still don't understand the meaning of service parameters.(let the general state machine be able to communicate with the GUI)
+  
+        
+  States:
+    outcomes:
+    transitions:
+    on_enter_do:
+      some executions are defined here, the so-called exectuion means calling a service, changing a parameter or something similar.
+      (define the order of a sequence of executions)
+    check_conditions:
